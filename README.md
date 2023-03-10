@@ -2,6 +2,8 @@
 
 This project contains wand store inspired by Ollivanders wand store from Harry Potter. Created for Sandstorm's Decentraland contest #7 - Movie Marathon.
 
+Currently deployed under Decentraland name `Wizardry`. Follow <a href="https://ambientcg.com/view?id=Bricks052">this link </a> or type in the Decentraland chatbox `/changerealm wizardry.dcl.eth` to visit the scene.
+
 ![Wand store from outside](screenshots/store-outside.png)
 ![Wand store from inside](screenshots/store-inside1.png)
 ![Wand store from inside](screenshots/store-inside2.png)

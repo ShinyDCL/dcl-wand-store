@@ -71,17 +71,20 @@
       "name": "spawn1",
       "default": true,
       "position": {
-        "x": 0,
+        "x": 56,
         "y": 0,
-        "z": 0
+        "z": 76
       },
       "cameraTarget": {
-        "x": 8,
+        "x": 56,
         "y": 1,
-        "z": 8
+        "z": 56
       }
     }
   ],
   "requiredPermissions": [],
-  "featureToggles": {}
+  "featureToggles": {},
+  "worldConfiguration": {
+    "name": "wizardry.dcl.eth"
+  }
 }
