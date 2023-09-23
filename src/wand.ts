@@ -12,7 +12,8 @@ import { Quaternion, Vector3 } from '@dcl/sdk/math'
 import { updateTransform } from './utils'
 
 export class Wand {
-  private readonly animationName = 'WandLight'
+  private readonly lightAnimation = 'WandLight'
+  private readonly outlineAnimation = 'WandOutline'
   private readonly transformRelativeToPlayer = {
     position: Vector3.create(0.4, 0.4, 0.5),
     rotation: Quaternion.fromEulerDegrees(45, 180, 0),
@@ -30,14 +31,20 @@ export class Wand {
     this.entity = wand
     this.transform = { ...transform }
 
-    // Set up animation
+    // Set up light and outline animations
     Animator.create(wand, {
       states: [
         {
-          name: this.animationName,
-          clip: this.animationName,
+          name: this.lightAnimation,
+          clip: this.lightAnimation,
           playing: false,
           loop: false
+        },
+        {
+          name: this.outlineAnimation,
+          clip: this.outlineAnimation,
+          playing: true,
+          loop: true
         }
       ]
     })
@@ -61,7 +68,9 @@ export class Wand {
 
   detachFromAvatar = () => updateTransform(this.entity, this.transform)
 
-  playAnimation = () => Animator.playSingleAnimation(this.entity, this.animationName)
+  playLightAnimation = () => Animator.playSingleAnimation(this.entity, this.lightAnimation)
 
-  stopAnimation = () => Animator.stopAllAnimations(this.entity)
+  playOutlineAnimation = () => Animator.playSingleAnimation(this.entity, this.outlineAnimation)
+
+  stopAnimations = () => Animator.stopAllAnimations(this.entity)
 }
