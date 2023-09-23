@@ -7,7 +7,7 @@ export enum LinkType {
 }
 
 export const URLS: Record<LinkType, string> = {
-  [LinkType.GITHUB]: 'https://github.com/ShinyDCL/wand-store',
+  [LinkType.GITHUB]: 'https://github.com/ShinyDCL/dcl-wand-store',
   [LinkType.TWITTER]: 'https://twitter.com/ShinyDCL/status/1598760892962721792'
 } as const
 
