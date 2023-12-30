@@ -1,9 +1,9 @@
-import ReactEcs, { ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
 import { Color4 } from '@dcl/sdk/math'
+import ReactEcs, { ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
 
 let isVisible: boolean = false
 
-export const setupUI = () => {
+export const setUpUI = () => {
   ReactEcsRenderer.setUiRenderer(() => (
     <UiEntity
       uiTransform={{

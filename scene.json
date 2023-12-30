@@ -14,10 +14,7 @@
 	},
 	"main": "bin/index.js",
 	"tags": [
-		"Wand store",
-		"Fantasy",
-		"Wizard",
-		"Magic"
+		"art"
 	],
 	"scene": {
 		"parcels": [

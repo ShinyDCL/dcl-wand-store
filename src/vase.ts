@@ -1,4 +1,4 @@
-import { Animator, Entity, GltfContainer, Transform, TransformType, engine } from '@dcl/sdk/ecs'
+import { Animator, engine, Entity, GltfContainer, Transform, TransformType } from '@dcl/sdk/ecs'
 
 export class Vase {
   private readonly explosionAnimation = 'Animation'
@@ -15,7 +15,6 @@ export class Vase {
     Animator.create(vase, {
       states: [
         {
-          name: this.explosionAnimation,
           clip: this.explosionAnimation,
           playing: false,
           loop: false
@@ -24,7 +23,7 @@ export class Vase {
     })
   }
 
-  playExplosionAnimation = () => Animator.playSingleAnimation(this.entity, this.explosionAnimation)
+  explode = () => Animator.playSingleAnimation(this.entity, this.explosionAnimation)
 
-  stopAnimations = () => Animator.stopAllAnimations(this.entity)
+  reset = () => Animator.stopAllAnimations(this.entity)
 }

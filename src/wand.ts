@@ -1,15 +1,17 @@
 import {
   Animator,
+  AudioSource,
+  engine,
   Entity,
   GltfContainer,
   InputAction,
+  pointerEventsSystem,
   Transform,
-  TransformType,
-  engine,
-  pointerEventsSystem
+  TransformType
 } from '@dcl/sdk/ecs'
 import { Quaternion, Vector3 } from '@dcl/sdk/math'
-import { updateTransform } from './utils'
+
+import { playSound, updateTransform } from './utils'
 
 export class Wand {
   private readonly lightAnimation = 'WandLight'
@@ -35,18 +37,22 @@ export class Wand {
     Animator.create(wand, {
       states: [
         {
-          name: this.lightAnimation,
           clip: this.lightAnimation,
           playing: false,
           loop: false
         },
         {
-          name: this.outlineAnimation,
           clip: this.outlineAnimation,
           playing: true,
           loop: true
         }
       ]
+    })
+
+    AudioSource.create(wand, {
+      audioClipUrl: 'sounds/click.mp3',
+      playing: false,
+      loop: false
     })
 
     // Add interaction to wand
@@ -64,13 +70,23 @@ export class Wand {
     )
   }
 
-  attachToAvatar = () => updateTransform(this.entity, this.transformRelativeToPlayer)
+  pickUp = () => {
+    playSound(this.entity)
+    // Stop animations and attach wand to avatar
+    Animator.stopAllAnimations(this.entity, true)
+    updateTransform(this.entity, this.transformRelativeToPlayer)
+  }
 
-  detachFromAvatar = () => updateTransform(this.entity, this.transform)
+  putDown = () => {
+    playSound(this.entity)
+    // Stop animations and detach from avatar
+    Animator.stopAllAnimations(this.entity, true)
+    updateTransform(this.entity, this.transform)
+    // Start animation for emissive outline
+    Animator.playSingleAnimation(this.entity, this.outlineAnimation)
+  }
 
-  playLightAnimation = () => Animator.playSingleAnimation(this.entity, this.lightAnimation)
-
-  playOutlineAnimation = () => Animator.playSingleAnimation(this.entity, this.outlineAnimation)
-
-  stopAnimations = () => Animator.stopAllAnimations(this.entity)
+  lightUp = () => {
+    Animator.playSingleAnimation(this.entity, this.lightAnimation)
+  }
 }

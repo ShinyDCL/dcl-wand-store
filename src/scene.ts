@@ -1,5 +1,6 @@
-import { Entity, GltfContainer, Transform, engine } from '@dcl/sdk/ecs'
+import { engine, Entity, GltfContainer, Transform } from '@dcl/sdk/ecs'
 import { Quaternion, Vector3 } from '@dcl/sdk/math'
+
 import { SCENE_SIZE } from './config'
 
 export const setUpScene = (parent: Entity) => {

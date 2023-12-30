@@ -1,12 +1,14 @@
 import { engine, InputAction, inputSystem, PointerEventType, Transform } from '@dcl/sdk/ecs'
 import { Quaternion, Vector3 } from '@dcl/sdk/math'
+
 import { SCENE_MIDDLE } from './config'
-import { Wand } from './wand'
-import { hideLabel, setupUI, showLabel } from './ui'
 import { setupLinks } from './links'
-import { setUpSkyBox } from './skyBox'
+import { setUpMusic } from './music'
 import { setUpScene } from './scene'
+import { setUpSkyBox } from './skyBox'
+import { hideLabel, setUpUI, showLabel } from './ui'
 import { Vase } from './vase'
+import { Wand } from './wand'
 
 export function main() {
   const root = engine.addEntity()
@@ -15,14 +17,14 @@ export function main() {
   setUpScene(root)
   setupLinks(root)
   setUpSkyBox(root)
-  setupUI()
+  setUpMusic()
+  setUpUI()
 
   let currentWand: Wand | null = null
   const onWandClick = (wand: Wand) => {
     if (currentWand) return
     currentWand = wand
-    wand.stopAnimations()
-    wand.attachToAvatar()
+    wand.pickUp()
     showLabel()
   }
 
@@ -48,29 +50,20 @@ export function main() {
   // Vase
   const vase = new Vase({ parent: root })
 
-  // Check for event when button E is pressed
+  // Check for event when button E is pressed (try out wand)
   engine.addSystem(() => {
     if (inputSystem.isTriggered(InputAction.IA_PRIMARY, PointerEventType.PET_DOWN)) {
       if (!currentWand) return
-      if (currentWand === wand1) vase.playExplosionAnimation()
-      if (currentWand === wand2) wand2.playLightAnimation()
+      if (currentWand === wand1) vase.explode()
+      if (currentWand === wand2) wand2.lightUp()
     }
   })
 
-  // Check for event when button F is pressed
+  // Check for event when button F is pressed (put down wand)
   engine.addSystem(() => {
-    if (inputSystem.isTriggered(InputAction.IA_SECONDARY, PointerEventType.PET_DOWN)) {
-      if (!currentWand) return
-      if (currentWand === wand1) {
-        vase.stopAnimations()
-        wand1.detachFromAvatar()
-      }
-      if (currentWand === wand2) {
-        wand2.stopAnimations()
-        wand2.detachFromAvatar()
-      }
-
-      currentWand.playOutlineAnimation()
+    if (inputSystem.isTriggered(InputAction.IA_SECONDARY, PointerEventType.PET_DOWN) && currentWand) {
+      currentWand.putDown()
+      vase.reset()
       hideLabel()
       currentWand = null
     }

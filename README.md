@@ -25,13 +25,20 @@ Textures used in 3D models and their sources:
 
 ## Try it out
 
-Open this folder on the command line, then run:
+1. Download this repository.
+
+2. Install the [Decentraland Editor](https://docs.decentraland.org/creator/development-guide/sdk7/editor/)
+
+3. Open a Visual Studio Code window on this scene's root folder. Not on the root folder of the whole repo, but instead on this sub-folder that belongs to the scene.
+
+4. Open the Decentraland Editor tab, and press **Run Scene**
+
+Alternatively, you can use the command line. Inside this scene root directory run:
 
 ```
+npm i
 npm run start
 ```
-
-Any dependencies are installed and then the CLI opens the scene in a new browser tab.
 
 ## Copyright info
 
